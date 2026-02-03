@@ -7,6 +7,17 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <style>
+        @media (max-width: 600px) {
+  .overlay h1 {
+    font-size: 24px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
         body {
         margin: 0;
         font-family: Arial, sans-serif;
@@ -18,7 +29,7 @@
     .swiper img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             object-position: center;
     }
     .overlay {
@@ -40,6 +51,20 @@
     background: rgba(0, 0, 0, 0.3);
     z-index: 10;
     }
+    .overlay h1 {
+  font-family: 'Cursive', 'Segoe Script', sans-serif;
+  color: #ffdde1;
+  font-size: 36px;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ff4b5c;
+  }
+  to {
+    text-shadow: 0 0 25px #ff9a9e;
+  }
+}
     .countdown {
     position: absolute;
     top: 20px;
@@ -50,28 +75,67 @@
     text-shadow: 0 2px 5px rgba(0,0,0,0.7);
     z-index: 15;
     }
-    .overlay h1 {
-    font-size: 36px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.7);
-
-}
     .buttons {
     display: flex;
     gap: 30px; 
     margin-bottom: 20px;
      }
-
-    button:hover {
+    .buttons button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff4b5c, #ff758c);
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+body {
+  transition: opacity 0.5s ease;
+}
+button:hover {
     background: darkred;
     color: white;
     transform: scale(1.1);
     transition: 0.3s;
 }
+.hearts{
+  content: "❤️ 💖 💕 💘 💓";
+  position: fixed;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  font-size: 30px;
+  animation: fall 10s linear infinite;
+  pointer-events: none;
+}
+.music-btn {
+  margin-bottom: 20px;
+  padding: 10px 25px;
+  border-radius: 20px;
+  border: none;
+  background: #ff4b5c;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+@keyframes fall {
+  from { transform: translateY(-100px); }
+  to { transform: translateY(110vh); }
+}
+
 
     </style>
 </head>
 
 <body>
+    <div class="hearts"></div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide"><img src="photo (1).jpg"></div>
@@ -83,8 +147,8 @@
     <div class="countdown" id="countdown"></div>
     <div class="overlay">
         <h1>Will You Be My Valentine Lifetime ?</h1>
-
-    <div class="buttons">
+        <button onclick="playMusic()" class="music-btn">🎵 Play Music</button>
+        <div class="buttons">
         <button id="yes">Yes</button>
         <button id="no">No</button>
     </div>
@@ -130,11 +194,15 @@ let messageIndex = 0;
 document.getElementById("no").addEventListener("mouseover", () => {
     const btn = document.getElementById("no");
     btn.style.position = "absolute";
-    btn.style.left = Math.random() * 100 + "%";
-    btn.style.top = Math.random() * 100 + "%";
+    btn.style.left = Math.random() * 70 + "%";
+    btn.style.top = Math.random() * 70 + "%";
     btn.innerHTML = noMessages[messageIndex % noMessages.length];
     messageIndex++;
 });
+function playMusic() {
+  document.getElementById("music").play();
+}
+
 </script>
 
 

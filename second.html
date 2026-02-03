@@ -4,12 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>She Said Yes ❤️</title>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
+#heart-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -40,10 +44,10 @@ body {
 }
 
 .heart {
-    position: absolute;
-    color: red;
+    position: fixed;
     font-size: 24px;
-    animation: float 6s linear infinite;
+    color: var(--heart-color, red);
+    animation: float var(--speed, 6s) linear infinite;
     z-index: 5;
 }
 
@@ -84,10 +88,28 @@ body {
     0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
     100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
 }
+.music-btn {
+  display: block;            
+  margin: 20px auto;           
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #ff4b5c, #ff758c);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease;
+}
+
+.music-btn:hover {
+  transform: scale(1.1);
+}
 </style>
 </head>
 
 <body>
+<div id="heart-container"></div>
 
 <div class="collage">
     <img src="photo (5).jpg" alt="Memory 1">
@@ -100,16 +122,19 @@ body {
     Every moment with you is a treasure I hold dear...<br>
     Your smile lights up my darkest days...<br>
     In your eyes, I see my forever...<br>
-    You are my dream come true, my love! 💕
+    You are my dream come true, my love! ð
 </div>
 
-<audio autoplay loop>
-    <source src="romantic-song.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+<audio id="song" loop>
+  <source src="music1.mp3" type="audio/mpeg">
 </audio>
 
+<button class="music-btn" onclick="playMusic()">
+  ❤️ Play Music
+</button>
+
 <div style="text-align: center; margin-top: 20px;">
-    <button onclick="window.location.href='letter.html'" style="background: pink; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 18px; cursor: pointer;">Read My Love Letter 💌</button>
+    <button onclick="window.location.href='letter.html'" style="background: pink; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 18px; cursor: pointer;">Read My Love Letter ð</button>
 </div>
 
 <script>
@@ -118,15 +143,73 @@ const createHeart = () => {
     heart.className = 'heart';
     heart.innerHTML = '❤️';
     heart.style.left = Math.random() * 100 + 'vw';
-    document.body.appendChild(heart);
+    document.getElementById("heart-container").appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 };
 
 window.onload = () => {
-    alert("I KNEW IT BABY");
+
+    const message = document.createElement("div");
+    message.innerHTML = "I knew it ❤️";
+    message.style.position = "fixed";
+    message.style.top = "50%";
+    message.style.left = "50%";
+    message.style.transform = "translate(-50%, -50%)";
+    message.style.color = "pink";
+    message.style.fontSize = "36px";
+    message.style.fontFamily = "cursive";
+    message.style.zIndex = "50";
+    message.style.textShadow = "0 0 15px hotpink";
+
+    document.body.appendChild(message);
+
+    setTimeout(() => message.remove(), 3000);
+
     confetti({ particleCount: 100, spread: 70 });
-    setInterval(createHeart, 500);
+    setInterval(createHeart, 800);
 };
+let playing = false;
+let colorInterval;
+
+function playMusic() {
+    const song = document.getElementById("song");
+    const btn = document.querySelector(".music-btn");
+
+    if (!playing) {
+        song.play();
+
+        
+        document.documentElement.style.setProperty("--speed", "3s");
+
+
+        const colors = ["#ff4b5c", "#ff69b4", "#ff1493", "#ff0000"];
+        let index = 0;
+
+        clearInterval(colorInterval);
+        colorInterval = setInterval(() => {
+            document.documentElement.style.setProperty(
+                "--heart-color",
+                colors[index % colors.length]
+            );
+            index++;
+        }, 400);
+
+        btn.innerText = "❤️ Pause Music";
+        playing = true;
+
+    } else {
+        song.pause();
+
+        document.documentElement.style.setProperty("--speed", "6s");
+        document.documentElement.style.setProperty("--heart-color", "red");
+        clearInterval(colorInterval);
+
+        btn.innerText = "❤️ Play Music";
+        playing = false;
+    }
+}
+
+
 </script>
 
 </body>
