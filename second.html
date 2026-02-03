@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>She Said Yes ❤️</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #000;
+}
+
+.swiper {
+    width: 100vw;
+    height: 100vh;
+}
+
+.swiper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.caption {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+    color: pink;
+    font-size: 48px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.7);
+    z-index: 10;
+    white-space: pre-line;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 24px;
+    animation: float 6s linear infinite;
+    z-index: 5;
+}
+
+.collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: 100px auto 50px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.collage img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.collage img:hover {
+    transform: scale(1.05);
+}
+
+.cute-lines {
+    text-align: center;
+    color: #ff69b4;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="collage">
+    <img src="photo (5).jpg" alt="Memory 1">
+    <img src="photo (6).jpg" alt="Memory 2">
+    <img src="photo (7).jpg" alt="Memory 3">
+    <img src="photo (1).jpg" alt="Memory 4">
+</div>
+
+<div class="cute-lines">
+    Every moment with you is a treasure I hold dear...<br>
+    Your smile lights up my darkest days...<br>
+    In your eyes, I see my forever...<br>
+    You are my dream come true, my love! 💕
+</div>
+
+<audio autoplay loop>
+    <source src="romantic-song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href='letter.html'" style="background: pink; color: white; border: none; padding: 10px 20px; border-radius: 25px; font-size: 18px; cursor: pointer;">Read My Love Letter 💌</button>
+</div>
+
+<script>
+const createHeart = () => {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+};
+
+window.onload = () => {
+    alert("I KNEW IT BABY");
+    confetti({ particleCount: 100, spread: 70 });
+    setInterval(createHeart, 500);
+};
+</script>
+
+</body>
+</html>

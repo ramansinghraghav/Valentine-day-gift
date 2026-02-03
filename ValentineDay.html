@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+}
+    .swiper{
+        width:100vw;
+        height:100vh;
+    }
+    .swiper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+    }
+    .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    }
+    .countdown {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: #ff69b4;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+    z-index: 15;
+    }
+    .overlay h1 {
+    font-size: 36px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.7);
+
+}
+    .buttons {
+    display: flex;
+    gap: 30px; 
+    margin-bottom: 20px;
+     }
+
+    button:hover {
+    background: darkred;
+    color: white;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="photo (1).jpg"></div>
+          <div class="swiper-slide"><img src="photo (2).jpg"></div>
+          <div class="swiper-slide"><img src="photo (3).jpg"></div>
+          <div class="swiper-slide"><img src="photo (4).jpg"></div>
+          </div>
+          </div>
+    <div class="countdown" id="countdown"></div>
+    <div class="overlay">
+        <h1>Will You Be My Valentine Lifetime ?</h1>
+
+    <div class="buttons">
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+    </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+      <script>
+const valentineDate = new Date('February 14, 2026 00:00:00').getTime();
+
+const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = valentineDate - now;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById('countdown').innerHTML = `Valentine's Day in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    if (distance < 0) {
+        document.getElementById('countdown').innerHTML = "Happy Valentine's Day!";
+    }
+};
+
+setInterval(updateCountdown, 1000);
+
+new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: {
+        delay: 3500,
+    },
+    effect: "fade",
+    fadeEffect: {
+        crossFade: true,
+    },
+});
+document.getElementById("yes").onclick = () => {
+    document.body.style.opacity = 0;
+    setTimeout(() => {
+        window.location.href = "second.html";
+    }, 500);
+};
+const noMessages = ["Are you sure?", "Think again!", "Please say yes!", "My heart will break!", "One more chance?"];
+let messageIndex = 0;
+document.getElementById("no").addEventListener("mouseover", () => {
+    const btn = document.getElementById("no");
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * 100 + "%";
+    btn.style.top = Math.random() * 100 + "%";
+    btn.innerHTML = noMessages[messageIndex % noMessages.length];
+    messageIndex++;
+});
+</script>
+
+
+</body>
+</html>
